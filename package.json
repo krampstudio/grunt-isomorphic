@@ -1,0 +1,32 @@
+{
+  "name": "grunt-exportify",
+  "version": "0.0.1",
+  "description": "Creates amd, cjs, es6 and old school modules from your js source.",
+  "homepage": "https://github.com/krampstudio/grunt-exportify",
+  "repository": "https://github.com/krampstudio/grunt-exportify.git",
+  "author": {
+    "name": "Bertrand Chevrier",
+    "email": "chevrier.bertrand@gmail.com",
+    "url": "https://github.com/krampstudio"
+  },
+  "keywords": [
+    "gruntplugin"
+  ],
+  "main": "Gruntfile.js",
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-jshint": "~0.8.0",
+    "grunt-contrib-nodeunit": "~0.3.0",
+    "handlebars": "^3.0.0",
+    "jshint-stylish": "~0.1.5",
+    "load-grunt-tasks": "~0.3.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  }
+}
