@@ -15,20 +15,21 @@ module.exports = function(grunt) {
     var templates = {};
 
     var morpher = function(type, data) {
-        var file;
+        var tpl;
         if (!templates[type]) {
-            file = './tpl/' + type + '.hbs';
-            if (!grunt.file.exists(file)) {
-                grunt.log.error('Unable to find template for type ' + file);
+            tpl = path.resolve(__dirname + '/tpl/' + type + '.hbs');
+            if (!grunt.file.exists(tpl)) {
+                grunt.log.error('Unable to find template for type ' + tpl);
                 return false;
             }
-            templates[type] = hbs.compile(file);
+            templates[type] = hbs.compile(grunt.file.read(tpl));
         }
 
         if (!templates[type]) {
             grunt.log.error('Unsupported output type ' + type);
             return false;
         }
+
         return templates[type](data);
     };
 
