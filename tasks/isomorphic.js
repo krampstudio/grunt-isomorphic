@@ -5,47 +5,66 @@
  * Copyright (c) 2015 Bertrand Chevrier
  * Licensed under the MIT license.
  */
+var hbs = require('handlebars');
+var path = require('path');
 
-'use strict';
 
-module.exports = function (grunt) {
+module.exports = function(grunt) {
+    'use strict';
 
-  // Please see the Grunt documentation for more information regarding task
-  // creation: http://gruntjs.com/creating-tasks
+    var templates = {};
 
-  grunt.registerMultiTask('isomorphic', 'Creates amd, cjs, es6 and old school modules from your js source.', function () {
-
-    // Merge task-specific and/or target-specific options with these defaults.
-    var options = this.options({
-      punctuation: '.',
-      separator: ', '
-    });
-
-    // Iterate over all specified file groups.
-    this.files.forEach(function (file) {
-      // Concat specified files.
-      var src = file.src.filter(function (filepath) {
-        // Warn on and remove invalid source files (if nonull was set).
-        if (!grunt.file.exists(filepath)) {
-          grunt.log.warn('Source file "' + filepath + '" not found.');
-          return false;
-        } else {
-          return true;
+    var morpher = function(type, data) {
+        var file;
+        if (!templates[type]) {
+            file = './tpl/' + type + '.hbs';
+            if (!grunt.file.exists(file)) {
+                grunt.log.error('Unable to find template for type ' + file);
+                return false;
+            }
+            templates[type] = hbs.compile(file);
         }
-      }).map(function (filepath) {
-        // Read file source.
-        return grunt.file.read(filepath);
-      }).join(grunt.util.normalizelf(options.separator));
 
-      // Handle options.
-      src += options.punctuation;
+        if (!templates[type]) {
+            grunt.log.error('Unsupported output type ' + type);
+            return false;
+        }
+        return templates[type](data);
+    };
 
-      // Write the destination file.
-      grunt.file.write(file.dest, src);
+    grunt.registerMultiTask('isomorphic', 'Creates amd, cjs, es6 and old school modules from your js source.', function() {
 
-      // Print a success message.
-      grunt.log.writeln('File "' + file.dest + '" created.');
+        var options = this.options({
+            types: ['old', 'amd', 'cjs', 'umd', 'es6'],
+            name : function (file){
+                return path.basename(file, '.js');
+            }
+        });
+
+        this.files.forEach(function(file) {
+            // Concat specified files.
+            file.src.forEach(function(filepath) {
+                var fileData;
+
+                if (!grunt.file.exists(filepath)) {
+                    grunt.log.warn('Source file "' + filepath + '" not found.');
+                    return;
+                }
+
+                fileData = {
+                    name : options.name(filepath),
+                    code : grunt.file.read(filepath)
+                };
+
+                options.types.forEach(function(type){
+                    var dest = file.dest + '/' + fileData.name + '.' + type + '.js';
+                    grunt.file.write(dest, morpher(type, fileData));
+
+                    if(grunt.file.exists(dest)){
+                        grunt.log.writeln(dest + ' generated');
+                    }
+                });
+            });
+        });
     });
-  });
-
 };
