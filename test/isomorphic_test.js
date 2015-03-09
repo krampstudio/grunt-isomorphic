@@ -22,7 +22,7 @@ var grunt = require('grunt');
     test.ifError(value)
 */
 
-exports.exportify = {
+exports.isomorphic = {
   setUp: function (done) {
     // setup here if necessary
     done();

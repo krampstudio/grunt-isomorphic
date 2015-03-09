@@ -1,9 +1,9 @@
 {
-  "name": "grunt-exportify",
+  "name": "grunt-isomorphic",
   "version": "0.0.1",
   "description": "Creates amd, cjs, es6 and old school modules from your js source.",
-  "homepage": "https://github.com/krampstudio/grunt-exportify",
-  "repository": "https://github.com/krampstudio/grunt-exportify.git",
+  "homepage": "https://github.com/krampstudio/grunt-isomorphic",
+  "repository": "https://github.com/krampstudio/grunt-isomorphic.git",
   "author": {
     "name": "Bertrand Chevrier",
     "email": "chevrier.bertrand@gmail.com",

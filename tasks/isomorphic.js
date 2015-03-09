@@ -1,6 +1,6 @@
 /*
- * grunt-exportify
- * https://github.com/krampstudio/grunt-exportify
+ * grunt-isomorphic
+ * https://github.com/krampstudio/grunt-isomorphic
  *
  * Copyright (c) 2015 Bertrand Chevrier
  * Licensed under the MIT license.
@@ -13,7 +13,7 @@ module.exports = function (grunt) {
   // Please see the Grunt documentation for more information regarding task
   // creation: http://gruntjs.com/creating-tasks
 
-  grunt.registerMultiTask('exportify', 'Creates amd, cjs, es6 and old school modules from your js source.', function () {
+  grunt.registerMultiTask('isomorphic', 'Creates amd, cjs, es6 and old school modules from your js source.', function () {
 
     // Merge task-specific and/or target-specific options with these defaults.
     var options = this.options({

@@ -1,6 +1,6 @@
 /*
- * grunt-exportify
- * https://github.com/krampstudio/grunt-exportify
+ * grunt-isomorphic
+ * https://github.com/krampstudio/grunt-isomorphic
  *
  * Copyright (c) 2015 Bertrand Chevrier
  * Licensed under the MIT license.
@@ -32,7 +32,7 @@ module.exports = function (grunt) {
     },
 
     // Configuration to be run (and then tested).
-    exportify: {
+    isomorphic: {
       default_options: {
         options: {
         },
@@ -63,7 +63,7 @@ module.exports = function (grunt) {
 
   // Whenever the "test" task is run, first clean the "tmp" dir, then run this
   // plugin's task(s), then test the result.
-  grunt.registerTask('test', ['clean', 'exportify', 'nodeunit']);
+  grunt.registerTask('test', ['clean', 'isomorphic', 'nodeunit']);
 
   // By default, lint and run all tests.
   grunt.registerTask('default', ['jshint', 'test']);
